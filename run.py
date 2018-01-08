@@ -16,7 +16,7 @@ TRAIN_LABELS_FILENAME = 'labels.dat'
 TRAIN_DESC_FILENAME = 'descriptors.dat'
 
 TRAIN_DATA_PATH = 'train_data/'
-TEST_DATA_PATH = 'train_data/'
+TEST_DATA_PATH = 'test_data/'
 
 
 class VegeClassifier:
@@ -245,9 +245,9 @@ class VegeClassifier:
 
 def plot_confusion_matrix(
         cm, classes,
-       normalize=False,
-       title='Confusion matrix',
-       cmap=plt.cm.Blues):
+        normalize=False,
+        title='Confusion matrix',
+        cmap=plt.cm.Blues):
 
     """
     This function prints and plots the confusion matrix.
