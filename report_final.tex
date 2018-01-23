@@ -1,0 +1,98 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage{graphicx}
+\usepackage{subfig}
+\graphicspath{ {report/} }
+
+\begin{document}
+\noindent
+\large\textbf{EIASR report} \hfill \textbf{Szymon Michalski} \\
+\normalsize 17Z \hfill Fruits and Vegetables Classifier\\
+
+
+\section*{Task Description}
+The project is to create classifier for fruits and vegetables. 
+There is given subset of fruits and vegetables: orange, apple, watermelon, cauliflower, broccoli. Additionally there is one more class describing not known objects.
+Classifier will give an answer of the type of the object on the input and will also be able to tell if it is an object not from the given list of learned objects.
+
+\section*{Proposed solution}
+In order to solve the given problem the following solution was proposed:
+Features will be extracted from images via SIFT algorithm. Later features will be added to Bag of Words. Finally images will be classified using Support Vector Machine.
+
+\section*{Final program}
+The proposed solution was implemented exactly as it was proposed in the preliminary report. From the given subset of fruits watermelon was removed, because this class was completely not recognized correctly. For the other classes it is visible that classifier works, even though the accuracy is far from perfection.
+
+\section*{Testing Images Selection}
+Due to lack of prepared dataset of already tagged fruits and vegetables imaged, images were gathered from www.image-net.org and www.google.com and thoroughly checked. Then they were divided into six classes: orange, apple, cauliflower, broccoli, other. In total only 307 images were qualified to be train data, and 146 images for test purposes. Most of the data is the class "other" which were taken from MIT Objects 101 dataset.
+
+\section*{Example Results}
+
+Figures from 1 to 5 show example of correct and incorrect classification of each class.
+
+\begin{figure}[!htbp]
+  \centering
+  \subfloat[Apple classified as apple]{\includegraphics[width=0.4\textwidth]{results/apple_apple.jpg}}
+  \hfill
+  \subfloat[Apple as classified cauliflower]{\includegraphics[width=0.4\textwidth]{results/apple_cauliflower.jpg}}
+  \hfill
+  \caption{Example of apple classification.}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \subfloat[Broccoli classified as broccoli]{\includegraphics[width=0.4\textwidth]{results/broccoli_broccoli.jpg}}
+  \hfill
+  \subfloat[Broccoli as classified apple]{\includegraphics[width=0.4\textwidth]{results/broccoli_apple.jpg}}
+  \hfill
+  \caption{Example of broccoli classification.}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \subfloat[Cauliflower classified as cauliflower]{\includegraphics[width=0.4\textwidth]{results/cauliflower_cauliflower.jpg}}
+  \hfill
+  \subfloat[Cauliflower as classified other]{\includegraphics[width=0.4\textwidth]{results/cauliflower_other.jpg}}
+  \hfill
+  \caption{Example of cauliflower classification.}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \subfloat[Orange classified as orange]{\includegraphics[width=0.4\textwidth]{results/orange_orange.jpg}}
+  \hfill
+  \subfloat[Orange as classified apple]{\includegraphics[width=0.4\textwidth]{results/orange_apple.jpg}}
+  \hfill
+  \caption{Example of orange classification.}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \subfloat[Other classified as other]{\includegraphics[width=0.4\textwidth]{results/other_other.jpg}}
+  \hfill
+  \subfloat[Other as classified apple]{\includegraphics[width=0.4\textwidth]{results/other_apple.jpg}}
+  \hfill
+  \caption{Example of other classification.}
+\end{figure}
+
+
+
+\section*{Result Analysis}
+
+FAR/FRR + ROC curve
+
+CMC curve is not possible to do due to the fact, that SVM do not produce probabilities but only final result.
+
+
+\begin{figure}[!htbp]
+\includegraphics[scale=1]{results/confusion_matrix.png}
+\centering
+\caption{Confusion Matrix}
+\end{figure}
+
+
+3) results analysis
+Analysis of obtained results, with some comments regarding negative results Also, include some statistical analysis of your results. Do not forget to write few words about your dataset - how many pictures there was, how many positive/negative samples for each class etc. More info: https://docs.google.com/document/d/1gclEGj0NrPgZ3fMfE83-fMdeVYtTt-4HO3JS4uGGi2Y/edit?usp=sharing
+
+\end{document}
