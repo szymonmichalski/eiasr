@@ -1,4 +1,6 @@
 import datetime
+from collections import Counter
+from pprint import pprint
 
 from cv2 import cv2
 import numpy as np
@@ -32,26 +34,37 @@ class Classifier:
         self.BOW = None
         self.bowDiction = None
 
-    def do(self):
+    def run(self):
 
+        self.train()
+        self.test()
+
+    def train(self):
         print(datetime.datetime.now())
-
         self.set_up()
-
         names_path, training_paths = self.get_training_data()
-
         self.bag_of_words(training_paths)
-
         train_labels, train_desc = self.build_labels_array_and_descriptors(
             names_path, training_paths)
-
         self.train_svm(train_labels, train_desc)
+        print("Train data: {}".format(
+            Counter(self.change_labels(train_labels))))
 
+    def test(self):
         test_true_labels, test_predicted_labels = self.get_test_labels()
-
         evaluation = Evaluation(
             test_true_labels, test_predicted_labels, self.class_list)
+        print("Test data: {}".format(Counter(test_true_labels)))
+        print("Precision, recall, fscore, support for all classes")
+        pprint(evaluation.acc_all)
+        print("Precision, recall, fscore, support micro")
+        print(evaluation.acc_micro)
+        print("Precision, recall, fscore, support macro")
+        print(evaluation.acc_macro)
+        print("Precision, recall, fscore, support weighted")
+        print(evaluation.acc_weight)
         evaluation.plot_cnf_matrix()
+        evaluation.plot_roc()
 
     def set_up(self):
         self.train_data_path = os.path.join(
@@ -137,7 +150,6 @@ class Classifier:
                 i = i + 1
                 label_bar.next()
             label_bar.finish()
-            # print(Counter(train_labels))
             with open(TRAIN_LABELS_FILENAME, 'wb') as f:
                 np.savetxt(f, train_labels, delimiter=",")
             with open(TRAIN_DESC_FILENAME, 'wb') as f:

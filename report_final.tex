@@ -26,6 +26,27 @@ The proposed solution was implemented exactly as it was proposed in the prelimin
 
 \section*{Testing Images Selection}
 Due to lack of prepared dataset of already tagged fruits and vegetables imaged, images were gathered from www.image-net.org and www.google.com and thoroughly checked. Then they were divided into six classes: orange, apple, cauliflower, broccoli, other. In total only 307 images were qualified to be train data, and 146 images for test purposes. Most of the data is the class "other" which were taken from MIT Objects 101 dataset.
+\textbf{Number of images per category}:
+Train data:
+'apple': 74, 'cauliflower': 60, 'broccoli': 38, 'orange': 51, 'other': 84
+
+\textbf{Test data:}
+'apple': 20, 'cauliflower': 11, 'broccoli': 9, 'orange': 8, other': 98
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+Class & Apple & Cauliflower & Broccoli & Orange & Other \\ 
+\hline 
+Precision & 0.52 & 0.34 & 0.28 & 0.25 & 0.89 \\ 
+\hline 
+Recall & 0.6 & 0.81 & 0.44 & 0.75 & 0.54 \\ 
+\hline 
+F score & 0.55 & 0.48 & 0.34 & 0.37 & 0.67 \\ 
+\hline 
+True sum & 20 & 11 & 9 & 8 & 98 \\ 
+\hline 
+\end{tabular} 
+
 
 \section*{Example Results}
 
@@ -35,7 +56,7 @@ Figures from 1 to 5 show example of correct and incorrect classification of each
   \centering
   \subfloat[Apple classified as apple]{\includegraphics[width=0.4\textwidth]{results/apple_apple.jpg}}
   \hfill
-  \subfloat[Apple as classified cauliflower]{\includegraphics[width=0.4\textwidth]{results/apple_cauliflower.jpg}}
+  \subfloat[Apple classified as cauliflower]{\includegraphics[width=0.4\textwidth]{results/apple_cauliflower.jpg}}
   \hfill
   \caption{Example of apple classification.}
 \end{figure}
@@ -44,7 +65,7 @@ Figures from 1 to 5 show example of correct and incorrect classification of each
   \centering
   \subfloat[Broccoli classified as broccoli]{\includegraphics[width=0.4\textwidth]{results/broccoli_broccoli.jpg}}
   \hfill
-  \subfloat[Broccoli as classified apple]{\includegraphics[width=0.4\textwidth]{results/broccoli_apple.jpg}}
+  \subfloat[Broccoli classified as cauliflower]{\includegraphics[width=0.4\textwidth]{results/broccoli_apple.jpg}}
   \hfill
   \caption{Example of broccoli classification.}
 \end{figure}
@@ -53,7 +74,7 @@ Figures from 1 to 5 show example of correct and incorrect classification of each
   \centering
   \subfloat[Cauliflower classified as cauliflower]{\includegraphics[width=0.4\textwidth]{results/cauliflower_cauliflower.jpg}}
   \hfill
-  \subfloat[Cauliflower as classified other]{\includegraphics[width=0.4\textwidth]{results/cauliflower_other.jpg}}
+  \subfloat[Cauliflower classified as other]{\includegraphics[width=0.4\textwidth]{results/cauliflower_other.jpg}}
   \hfill
   \caption{Example of cauliflower classification.}
 \end{figure}
@@ -80,9 +101,16 @@ Figures from 1 to 5 show example of correct and incorrect classification of each
 
 \section*{Result Analysis}
 
-FAR/FRR + ROC curve
+ROC curve
 
-CMC curve is not possible to do due to the fact, that SVM do not produce probabilities but only final result.
+\begin{figure}[!htbp]
+\includegraphics[scale=0.5]{results/roc.png}
+\centering
+\caption{ROC Curve}
+\end{figure}
+
+
+CMC curve is not possible to be created do due to the fact, that OpenCV's SVM implementation does not produce probabilities but only final result.
 
 
 \begin{figure}[!htbp]
@@ -92,7 +120,10 @@ CMC curve is not possible to do due to the fact, that SVM do not produce probabi
 \end{figure}
 
 
-3) results analysis
-Analysis of obtained results, with some comments regarding negative results Also, include some statistical analysis of your results. Do not forget to write few words about your dataset - how many pictures there was, how many positive/negative samples for each class etc. More info: https://docs.google.com/document/d/1gclEGj0NrPgZ3fMfE83-fMdeVYtTt-4HO3JS4uGGi2Y/edit?usp=sharing
+As it is visible, classifier works with average precision at 73\%, recall 0.57\% and fscore 60\%. Unfortunately the overall accuracy is too low to be used in real application. It is possible that more train data with better quality would make classifier work better.
+
+
+\section*{Additional Remarks}
+The program was executed on two machines producing different results. In both cases classifier worked, however on the other machine results were somewhat worse, especially for orange class, for which classifying accuracy was around 10\% only. The code and data were the same and the same OpenCV version (3.3.0) was used on both computers. The reason of the difference is unknown.
 
 \end{document}
