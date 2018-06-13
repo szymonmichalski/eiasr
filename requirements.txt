@@ -1,5 +1,5 @@
 matplotlib==2.2.2
-numpy==1.13.3
+numpy==1.14.5
 opencv-contrib-python==3.3.0.10
 opencv-python==3.3.0.10
 progress==1.3
